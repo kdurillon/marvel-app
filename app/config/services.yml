@@ -1,9 +1,14 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-#    parameter_name: value
+    marvel_public_key: 48f0af8c4f64855d06cbb9f20914b086
+    marvel_private_key: c6727150dff92316cb0d9991ec4606fc5f5e1843
 
 services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    marvel_api:
+        class: AppBundle\Service\MarvelApi
+        arguments: ["%marvel_public_key%", "%marvel_private_key%", "@serializer"]
