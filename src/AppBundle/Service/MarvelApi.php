@@ -34,20 +34,26 @@ class MarvelApi
         $query = $this->prepareQuery();
         $query['limit'] = $limit;
         $query['offset'] = $offset;
-        $response = Unirest\Request::get('http://gateway.marvel.com/v1/public/characters',$headers,$query);
+        $response = Unirest\Request::get('http://gateway.marvel.com/v1/public/characters', $headers, $query);
         $data = json_decode($response->raw_body, true);
-        $characters = $data['data']['results'];
-        $heroes = [];
-        foreach ($characters as $character) {
-            $heroes[] = Character::createFromArray($character);
+        $list = $data['data']['results'];
+        $characters = [];
+        foreach ($list as $character) {
+            $characters[] = Character::createFromArray($character);
         }
 
-        return $heroes;
+        return $characters;
     }
 
     public function getCharacter($id)
     {
+        $headers = ['Accept' => 'application/json'];
+        $query = $this->prepareQuery();
+        $response = Unirest\Request::get('http://gateway.marvel.com/v1/public/characters/'.$id, $headers, $query);
+        $data = json_decode($response->raw_body, true);
 
+        $character = $data['data']['results'][0];
+        return Character::createFromArray($character);
     }
 
     private function prepareQuery()

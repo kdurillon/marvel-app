@@ -8,23 +8,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class HomeController extends Controller
+class CharacterController extends Controller
 {
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/character/{id}", name="character")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
         /**
          * @var MarvelApi $marvelApi
          */
         $marvelApi = $this->container->get('marvel_api');
 
-        $characters = $marvelApi->getCharacters(20, 100);
+        $character = $marvelApi->getCharacter($id);
 
-        return $this->render('default\index.html.twig', [
-            'characters' => $characters
+        return $this->render('default\character.html.twig', [
+            'character' => $character
         ]);
     }
 }
