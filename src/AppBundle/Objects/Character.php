@@ -3,7 +3,7 @@
 namespace AppBundle\Objects;
 
 
-class Hero
+class Character
 {
     private $id;
     private $name;
@@ -16,7 +16,7 @@ class Hero
     private $comics;
 
     /**
-     * Hero constructor.
+     * Character constructor.
      * @param $id
      * @param $name
      * @param $description
@@ -58,7 +58,7 @@ class Hero
 
     /**
      * @param mixed $name
-     * @return Hero
+     * @return Character
      */
     public function setName($name)
     {
@@ -76,7 +76,7 @@ class Hero
 
     /**
      * @param mixed $description
-     * @return Hero
+     * @return Character
      */
     public function setDescription($description)
     {
@@ -87,16 +87,16 @@ class Hero
     /**
      * @return mixed
      */
-    public function getthumbnail()
+    public function getThumbnail()
     {
         return $this->thumbnail;
     }
 
     /**
      * @param mixed $thumbnail
-     * @return Hero
+     * @return Character
      */
-    public function setthumbnail($thumbnail)
+    public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
         return $this;
@@ -112,7 +112,7 @@ class Hero
 
     /**
      * @param Comic[] $comics
-     * @return Hero
+     * @return Character
      */
     public function setComics($comics)
     {
@@ -122,6 +122,8 @@ class Hero
 
     public static function createFromArray($data)
     {
+        $thumbnail = new Thumbnail($data['thumbnail']['path'], $data['thumbnail']['extension']);
+
         $comics = [];
         foreach ($data['comics']['items'] as $comic) {
             $comics[] = Comic::createFromArray($comic);
@@ -131,7 +133,7 @@ class Hero
             $data['id'],
             $data['name'],
             $data['description'],
-            $data['thumbnail'],
+            $thumbnail,
             $comics
         );
     }

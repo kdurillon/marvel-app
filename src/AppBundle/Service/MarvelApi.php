@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Objects\Hero;
+use AppBundle\Objects\Character;
 use Symfony\Component\Serializer\Serializer;
 use Unirest;
 
@@ -39,7 +39,7 @@ class MarvelApi
         $characters = $data['data']['results'];
         $heroes = [];
         foreach ($characters as $character) {
-            $heroes[] = Hero::createFromArray($character);
+            $heroes[] = Character::createFromArray($character);
         }
 
         return $heroes;

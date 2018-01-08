@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-
-            {{ dump(heroes) }}
-
+    <div class="container">
+        <div class="row">
+            {% for character in characters %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ character.Thumbnail.StandardLarge }}" alt="{{ character.Name }}">
+                        <div class="card-block">
+                            <h4 class="card-title">{{ character.Name }}</h4>
+                            <p class="card-text">{{ character.Description }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                {% if (loop.index is divisible by(4)) %}
+                    </div>
+                    <div class="row">
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

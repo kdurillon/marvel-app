@@ -6,17 +6,17 @@ namespace AppBundle\Objects;
 class Comic
 {
     private $title;
-    private $ressource;
+    private $resource;
 
     /**
      * Comic constructor.
      * @param $title
-     * @param $ressource
+     * @param $resource
      */
-    public function __construct($title, $ressource)
+    public function __construct($title, $resource)
     {
         $this->title = $title;
-        $this->ressource = $ressource;
+        $this->resource = $resource;
     }
 
     public static function createFromArray($comic)
@@ -45,18 +45,18 @@ class Comic
     /**
      * @return mixed
      */
-    public function getressource()
+    public function getResource()
     {
-        return $this->ressource;
+        return $this->resource;
     }
 
     /**
-     * @param mixed $ressource
+     * @param mixed $resource
      * @return Comic
      */
-    public function setressource($ressource)
+    public function setResource($resource)
     {
-        $this->ressource = $ressource;
+        $this->resource = $resource;
         return $this;
     }
 }
