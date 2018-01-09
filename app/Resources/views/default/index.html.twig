@@ -8,16 +8,8 @@
                         <img class="media-object" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
                 </div>
                 <div class="media-body">
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#{{ character.id }}" class="media-heading">{{ character.name }}</a>
+                    <a href="/character/{{ character.id }}" class="media-heading">{{ character.name }}</a>
                     <p>{{ character.description }}</p>
-                    <div class="collapse" id="{{ character.id }}">
-                        <div>Number of appearances : {{ character.ComicsAvailable }}</div>
-                        <div>First 3 comics :
-                            {% for comic in character.comics %}
-                                {{ comic.title }},
-                            {% endfor %}
-                        </div>
-                    </div>
                 </div>
             </li>
         {% endfor %}

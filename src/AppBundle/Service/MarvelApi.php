@@ -40,9 +40,7 @@ class MarvelApi
         $list = $data['data']['results'];
         $characters = [];
         foreach ($list as $character) {
-            $hero = Character::createFromArray($character);
-            $hero->setComics($this->getComicsForCharacter($hero->getId()));
-            $characters[] = $hero;
+            $characters[] = Character::createFromArray($character);
         }
 
         return $characters;
@@ -56,7 +54,10 @@ class MarvelApi
         $data = json_decode($response->raw_body, true);
 
         $character = $data['data']['results'][0];
-        return Character::createFromArray($character);
+        $hero = Character::createFromArray($character);
+        $hero->setComics($this->getComicsForCharacter($hero->getId()));
+
+        return $hero;
     }
 
     public function getComicsForCharacter($id)
@@ -74,7 +75,6 @@ class MarvelApi
         }
 
         return $comics;
-
     }
 
     private function prepareQuery()

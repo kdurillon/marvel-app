@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 
-{% block jumbotron %}
-    <div class="jumbotron">
+{% block header %}
+    <div class="page-header">
         <h1>{{ character.name }}</h1>
     </div>
 {% endblock %}
@@ -10,7 +10,16 @@
     <div class="row">
         <img class="col-md-4" src="{{ character.thumbnail.Detail }}" alt="{{ character.name }}">
         <div class="col-md-8">
-            <p class="card-text">{{ character.description }}</p>
+            <ul class="list-group">
+                <li class="list-group-item disabled">Description :</li>
+                <li class="list-group-item">{{ character.description }}</li>
+                <li class="list-group-item disabled">Number of appearances :</li>
+                <li class="list-group-item">{{ character.ComicsAvailable }}</li>
+                <li class="list-group-item disabled">First appearances :</li>
+                {% for comic in character.comics %}
+                    <li class="list-group-item">{{ comic.title }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}
