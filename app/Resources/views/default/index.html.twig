@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="row">
+        {% if page > 0 %}
+            <a class="btn btn-default" href="/{{ page-1 }}" role="button">Previous</a>
+        {% endif %}
+        <a class="btn btn-default" href="{{ page+1 }}" role="button">Next</a>
+    </div>
+
     <ul class="media-list">
         {% for character in characters %}
             <li class="media panel">
                 <div class="media-left">
-                        <img class="media-object" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
+                    <img class="media-object" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
                 </div>
                 <div class="media-body">
                     <a href="/character/{{ character.id }}" class="media-heading">{{ character.name }}</a>
@@ -14,5 +21,12 @@
             </li>
         {% endfor %}
     </ul>
+
+    <div class="row">
+        {% if page > 0 %}
+            <a class="btn btn-default" href="/{{ page-1 }}" role="button">Previous</a>
+        {% endif %}
+        <a class="btn btn-default" href="{{ page+1 }}" role="button">Next</a>
+    </div>
 {% endblock %}
 

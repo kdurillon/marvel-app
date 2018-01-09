@@ -13,18 +13,25 @@ class HomeController extends Controller
 
     /**
      * @Route("/", name="homepage")
+     * @Route("/{page}", name="homepage")
      */
-    public function indexAction()
+    public function indexAction($page=null)
     {
         /**
          * @var MarvelApi $marvelApi
          */
         $marvelApi = $this->container->get('marvel_api');
 
-        $characters = $marvelApi->getCharacters(20, 100);
+        $offset = 100;
+        if (isset($page)) {
+            $offset = 100+20*$page;
+        }
+
+        $characters = $marvelApi->getCharacters(20, $offset);
 
         return $this->render('default\index.html.twig', [
-            'characters' => $characters
+            'characters' => $characters,
+            'page' => $page ?: 0
         ]);
     }
 }
