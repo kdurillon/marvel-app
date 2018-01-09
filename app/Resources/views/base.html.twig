@@ -17,9 +17,18 @@
     <body>
         <div class="container">
             {% block header %}
-                <div class="page-header">
-                    <h1>Marvel App</h1>
-                </div>
+                <nav class="navbar navbar-default navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-brand">
+                            Marvel App
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             {% endblock %}
             {% block body %}
             {% endblock %}
