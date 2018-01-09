@@ -21,7 +21,7 @@ class Comic
 
     public static function createFromArray($comic)
     {
-        return new self($comic['name'], $comic['resourceURI']);
+        return new self($comic['title'], $comic['resourceURI']);
     }
 
     /**

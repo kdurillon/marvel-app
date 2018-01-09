@@ -1,25 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            {% for character in characters %}
-                <div class="col-md-3">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
-                        <div class="card-block">
-                            <h4 class="card-title">{{ character.name }}</h4>
-                            <p class="card-text">{{ character.description }}</p>
-                            <a href="/character/{{ character.id }}" class="btn btn-primary">Learn More</a>
+    <ul class="media-list">
+        {% for character in characters %}
+            <li class="media panel">
+                <div class="media-left">
+                        <img class="media-object" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
+                </div>
+                <div class="media-body">
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#{{ character.id }}" class="media-heading">{{ character.name }}</a>
+                    <p>{{ character.description }}</p>
+                    <div class="collapse" id="{{ character.id }}">
+                        <div>Number of appearances : {{ character.ComicsAvailable }}</div>
+                        <div>First 3 comics :
+                            {% for comic in character.comics %}
+                                {{ comic.title }},
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {#{% if (loop.index is divisible by(4)) %}#}
-                    {#</div>#}
-                    {#<div class="row">#}
-                {#{% endif %}#}
-            {% endfor %}
-        </div>
-    </div>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 

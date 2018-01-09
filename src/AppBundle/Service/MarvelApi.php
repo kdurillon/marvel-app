@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Objects\Character;
+use AppBundle\Objects\Comic;
 use Symfony\Component\Serializer\Serializer;
 use Unirest;
 
@@ -39,7 +40,9 @@ class MarvelApi
         $list = $data['data']['results'];
         $characters = [];
         foreach ($list as $character) {
-            $characters[] = Character::createFromArray($character);
+            $hero = Character::createFromArray($character);
+            $hero->setComics($this->getComicsForCharacter($hero->getId()));
+            $characters[] = $hero;
         }
 
         return $characters;
@@ -54,6 +57,24 @@ class MarvelApi
 
         $character = $data['data']['results'][0];
         return Character::createFromArray($character);
+    }
+
+    public function getComicsForCharacter($id)
+    {
+        $headers = ['Accept' => 'application/json'];
+        $query = $this->prepareQuery();
+        $query['limit'] = 3;
+        $query['orderBy'] = 'onsaleDate';
+        $response = Unirest\Request::get('http://gateway.marvel.com/v1/public/characters/'.$id.'/comics', $headers, $query);
+        $data = json_decode($response->raw_body, true);
+        $list = $data['data']['results'];
+        $comics = [];
+        foreach ($list as $comic) {
+            $comics[] = Comic::createFromArray($comic);
+        }
+
+        return $comics;
+
     }
 
     private function prepareQuery()

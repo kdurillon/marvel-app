@@ -3,6 +3,8 @@
 namespace AppBundle\Objects;
 
 
+use AppBundle\Service\MarvelApi;
+
 class Character
 {
     private $id;
@@ -14,6 +16,7 @@ class Character
      * @var Comic[]
      */
     private $comics;
+    private $comicsAvailable;
 
     /**
      * Character constructor.
@@ -22,14 +25,16 @@ class Character
      * @param $description
      * @param $thumbnail
      * @param Comic[] $comics
+     * @param $comicsAvailable
      */
-    public function __construct($id, $name, $description, $thumbnail, array $comics)
+    public function __construct($id, $name, $description, $thumbnail, array $comics, $comicsAvailable)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->thumbnail = $thumbnail;
         $this->comics = $comics;
+        $this->comicsAvailable = $comicsAvailable;
     }
 
     /**
@@ -120,21 +125,33 @@ class Character
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getComicsAvailable()
+    {
+        return $this->comicsAvailable;
+    }
+
+    /**
+     * @param mixed $comicsAvailable
+     */
+    public function setComicsAvailable($comicsAvailable)
+    {
+        $this->comicsAvailable = $comicsAvailable;
+    }
+
     public static function createFromArray($data)
     {
         $thumbnail = new Thumbnail($data['thumbnail']['path'], $data['thumbnail']['extension']);
-
-        $comics = [];
-        foreach ($data['comics']['items'] as $comic) {
-            $comics[] = Comic::createFromArray($comic);
-        }
 
         return new self(
             $data['id'],
             $data['name'],
             $data['description'],
             $thumbnail,
-            $comics
+            [],
+            $data['comics']['available']
         );
     }
 }

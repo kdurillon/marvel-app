@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
+
+{% block jumbotron %}
+    <div class="jumbotron">
+        <h1>{{ character.name }}</h1>
+    </div>
+{% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <img class="card-img-top" src="{{ character.thumbnail.StandardLarge }}" alt="{{ character.name }}">
-                    <div class="card-block">
-                        <h4 class="card-title">{{ character.name }}</h4>
-                        <p class="card-text">{{ character.description }}</p>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <img class="col-md-4" src="{{ character.thumbnail.Detail }}" alt="{{ character.name }}">
+        <div class="col-md-8">
+            <p class="card-text">{{ character.description }}</p>
         </div>
     </div>
 {% endblock %}

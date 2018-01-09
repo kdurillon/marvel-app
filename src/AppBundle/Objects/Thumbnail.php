@@ -55,4 +55,9 @@ class Thumbnail
     {
         return $this->getPath() . '/standard_large.' . $this->getExtension();
     }
+
+    public function getDetail()
+    {
+        return $this->getPath() . '/detail.' . $this->getExtension();
+    }
 }
